@@ -12,14 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFCrud.ViewModels;
 
-namespace WPFCrud
+namespace WPFCrud.Views
 {
     /// <summary>
     /// Lógica de interacción para MenuYLista.xaml
     /// </summary>
     public partial class MenuYLista : Page
     {
+        private PersonViewModel2 personViewModel = new PersonViewModel2();
         public MenuYLista()
         {
             InitializeComponent();
@@ -27,17 +29,7 @@ namespace WPFCrud
         }
 
         private void Refresh() {
-            List<PersonViewModel> lst = new List< PersonViewModel>();
-            using (Model.WPFCrudEntities db = new Model.WPFCrudEntities()) {
-                lst = (from d in db.person
-                       select new PersonViewModel
-                       {
-                           Name = d.Name,
-                           Age = d.Age,
-                           Id = d.Id
-                       }).ToList();
-            }
-            GrdDatos.ItemsSource = lst;
+            GrdDatos.ItemsSource = personViewModel.GetAll();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,14 +37,10 @@ namespace WPFCrud
             MainWindow.StaticMainFrame.Content = new Formulario();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async Task Button_Click_1Async(object sender, RoutedEventArgs e)
         {
             int Id = (int)((Button)sender).CommandParameter;
-            using (Model.WPFCrudEntities db = new Model.WPFCrudEntities()) {
-                var oPerson = db.person.Find(Id);
-                db.person.Remove(oPerson);
-                db.SaveChanges();
-            }
+            await personViewModel.delete(Id);
             Refresh();
         }
 

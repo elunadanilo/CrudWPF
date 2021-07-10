@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFCrud.Model;
 using WPFCrud.ViewModels;
 
 namespace WPFCrud.Views
@@ -49,6 +50,24 @@ namespace WPFCrud.Views
             int Id = (int)((Button)sender).CommandParameter;
             Formulario pFormulario = new Formulario(Id);
             MainWindow.StaticMainFrame.Content = pFormulario;
+        }
+
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selected = (ComboBoxItem)e.AddedItems[0];
+            person selectedPerson = (person)GrdDatos.SelectedItem;
+
+            switch (selected.Content)
+            {
+                case "Eliminar":
+                    await personViewModel.delete(selectedPerson.Id);
+                    Refresh();
+                    break;
+                case "Editar":
+                    Formulario pFormulario = new Formulario(selectedPerson.Id);
+                    MainWindow.StaticMainFrame.Content = pFormulario;
+                    break;
+            }
         }
     }
 }

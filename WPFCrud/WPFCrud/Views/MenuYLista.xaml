@@ -24,10 +24,10 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <Button CommandParameter="{Binding Id}" Click="Button_Click_1">Eliminar</Button>
-                                <Button CommandParameter="{Binding Id}" Click="Button_Click_2">Editar</Button>
-                            </StackPanel>
+                            <ComboBox Text="Seleccione acción" IsEditable="true" IsReadOnly="True" SelectionChanged="ComboBox_SelectionChanged">
+                                <ComboBoxItem>Eliminar</ComboBoxItem>
+                                <ComboBoxItem>Editar</ComboBoxItem>
+                            </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

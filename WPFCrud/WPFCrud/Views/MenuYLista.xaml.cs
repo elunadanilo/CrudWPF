@@ -37,7 +37,7 @@ namespace WPFCrud.Views
             MainWindow.StaticMainFrame.Content = new Formulario();
         }
 
-        private async Task Button_Click_1Async(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             int Id = (int)((Button)sender).CommandParameter;
             await personViewModel.delete(Id);
@@ -50,11 +50,5 @@ namespace WPFCrud.Views
             Formulario pFormulario = new Formulario(Id);
             MainWindow.StaticMainFrame.Content = pFormulario;
         }
-    }
-
-    public class PersonViewModel {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int? Age { get; set; }
     }
 }

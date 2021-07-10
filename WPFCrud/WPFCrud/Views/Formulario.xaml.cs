@@ -36,7 +36,7 @@ namespace WPFCrud.Views
             }
         }
 
-        private async Task Button_ClickAsync(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Id == 0)
             {
